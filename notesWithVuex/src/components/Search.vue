@@ -25,7 +25,9 @@ export default {
   },
   watch: {
     search (val) {
-      this.$store.state.notes.search = val
+      // this.$store.state.notes.search = val
+      // а почему мы не можем на прямую митировать стейт?
+      this.$store.dispatch('changeSearch', val)
       // this.$store.getters.getNotes(val)
     }
   }

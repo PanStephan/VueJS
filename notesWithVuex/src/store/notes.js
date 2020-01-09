@@ -37,6 +37,9 @@ export default {
     ]
   },
   mutations: {
+    changeSearch(state, payload) {
+      state.search = payload
+    },
     showModal(state, payload) {
       state.showModal = payload
     },
@@ -79,7 +82,9 @@ export default {
 
     openModal({commit}, payload) {commit('openModal', payload)},
 
-    removeNote({commit}, payload) {commit('removeNote', payload)}
+    removeNote({commit}, payload) {commit('removeNote', payload)},
+
+    changeSearch({commit}, payload) {commit('changeSearch', payload)}
   },
   getters: {
     getNotes: state => {
