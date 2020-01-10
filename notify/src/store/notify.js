@@ -2,6 +2,7 @@ import loadMore from '../assets/js/loadMore.js'
 import axios from 'axios'
 
 export default {
+  // namespaced: true,
   state: {
     messages: [],
     messagesMain: [],
@@ -18,28 +19,33 @@ export default {
     },
   },
   actions: {
-  async getNotify ({commit}) {
-    // dispatch('setLoading', true, { root: true })
-    await axios.get('https://tocode.ru/static/c/vue-pro/notifyApi.php')
-      .then(reseponse => {
-        let res = reseponse.data.notify,
-            messages = [],
-            messagesMain = []
+    async getNotify ({commit, dispatch}) {
+      dispatch('loaders/setLoading', true, { root: true })
+      await axios.get('https://tocode.ru/static/c/vue-pro/notifyApi.php')
+        .then(reseponse => {
+          let res = reseponse.data.notify,
+              messages = [],
+              messagesMain = []
 
-        // filter
-        for (let i = 0; i < res.length; i++) {
-          if (res[i].main) messagesMain.push(res[i])
-          else messages.push(res[i])
-        }   
-         
-        commit('setMessage', messages)
-        commit('setMessageMain', messagesMain)
-      })
-      .catch(error => {
-        // dispatch('setError', 'Error: Network Error', { root: true })
-      })
-      // .finally(() => (dispatch('setLoading', true), { root: true }))
-  },
+          // filter
+          for (let i = 0; i < res.length; i++) {
+            if (res[i].main) messagesMain.push(res[i])
+            else messages.push(res[i])
+          }   
+          
+          commit('setMessage', messages)
+          commit('setMessageMain', messagesMain)
+        })
+        .catch(error => {
+          dispatch('errors/setError', 'Error: Network Error', { root: true })
+        })
+        .finally(() => (dispatch('loaders/setLoading', true), { root: true }))
+    },
+    getNotifyLazy ({commit, dispatch}) {
+      setTimeout (() => {
+        dispatch('getNotify')
+      }, 1800)
+    },
     setMessage ({commit}, payload) {
       commit('setMessage', payload)
     },

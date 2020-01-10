@@ -24,7 +24,7 @@
             </div>
 
             <!-- notify -->
-            <notify v-if="!loading && !error" :messages="messages"/>
+            <notify v-if="!loading && !error"/>
 
           </div>
 
@@ -41,19 +41,10 @@ import preloader from '@/components/UI/Preloader.vue'
 
 export default {
   components: { notify, preloader },
-  // data () {
-  //   return {
-  //     loading: false,
-  //     error: null
-  //   }
-  // },
   mounted () {
     this.$store.dispatch('getNotify')
   },
   computed: {
-    messages () {
-      return this.$store.getters.getMessageMain
-    },
     loading() {
       return this.$store.getters.getLoading
     },
@@ -63,10 +54,7 @@ export default {
   },
   methods: {
     getNotifyLazy () {
-      // this.loading = true
-      setTimeout (() => {
-        this.getNotify()
-      }, 1800)
+      this.$store.dispatch('getNotifyLazy')
     },
   }
 }

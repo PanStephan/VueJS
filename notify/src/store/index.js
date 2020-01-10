@@ -9,12 +9,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    // state: {
-    //   error: null,
-    //   loaders: false
-    // },
+    loaders,
+    errors,
     notify,
-    // loaders,
-    // errors
   }
 })
