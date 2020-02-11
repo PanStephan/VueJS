@@ -2,7 +2,6 @@ import loadMore from '../assets/js/loadMore.js'
 import axios from 'axios'
 
 export default {
-  // namespaced: true,
   state: {
     messages: [],
     messagesMain: [],
